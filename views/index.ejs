@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>Sentemoji Demo</title>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
+<script>
+var socket = io.connect('http://localhost:8080');
+ 
+socket.on('smsdata', function (data) {
+  $("#smsmsg").prepend("<li msgid='"+data.msgid+"'>"+data.msg+" = "+data.sentiment+"</li>");
+  console.log(data);
+});
+
+socket.on('score', function (data) {
+  $(".score").text(data);
+  console.log(data);
+});
+
+</script>
+
+</head>
+<body class="container">
+
+<main>
+	<div class="page-header">
+	  <h1>Sentemoji Demo <small>Send your emoji's to 0472880710</small></h1>
+	  <h4><a href="https://twitter.com/telstradev" target="blank">follow us at @TelstraDev</a></h4>
+	</div>
+	<div class="row">
+	    <div class="col-md-8">    
+	    	<div class="jumbotron">
+	    		<h2>Sentemoji Score <span class="score">0</span></h2>
+	    	</div>
+	        <div class="jumbotron">
+				<div class="embed-responsive embed-responsive-16by9">
+				  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Gh2pimzGFRI?rel=0&version=3&autoplay=1&loop=1&controls=0"></iframe>
+				</div>
+	        </div>
+	    </div>
+
+	    <div class="col-sm-4">        
+	        <div class="well">
+	        	<h3>Incoming Messages</h3>
+	        	<ul id="smsmsg"></ul>
+	        </div>
+	    </div>
+	</div>
+</main>
+
+</body>
+</html>
+
